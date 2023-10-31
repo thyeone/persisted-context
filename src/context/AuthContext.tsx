@@ -1,7 +1,7 @@
 import usePersistedState from '@hooks/usePersistedState';
-import { Dispatch, PropsWithChildren, SetStateAction, createContext, useMemo } from 'react';
+import { Dispatch, PropsWithChildren, SetStateAction, createContext, useContext, useMemo } from 'react';
 
-export type AuthContextValue = {
+type AuthContextValue = {
   name: string | null;
   setName: Dispatch<SetStateAction<string | null>>;
 };
@@ -20,4 +20,13 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   );
 
   return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;
+};
+
+export const useAuth = () => {
+  const authContext = useContext(AuthContext);
+  if (!authContext) throw new Error('부모 트리에서 AuthContext를 사용해주세요.');
+
+  const { name, setName } = authContext;
+
+  return { name, setName };
 };

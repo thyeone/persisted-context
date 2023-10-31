@@ -1,6 +1,6 @@
 import Layout from '@components/common/Layout';
+import Home from '@pages/Home';
 import Profile from '@pages/Profile';
-import Home from '@pages/home';
 import PrivateProvider from '@provider/PrivateProvider';
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 

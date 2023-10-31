@@ -14,7 +14,9 @@ const usePersistedState = <T extends string | number | object | null | undefined
   initialValue: T,
 ): [T, React.Dispatch<React.SetStateAction<T>>] => {
   const serializedItem = localStorage.getItem(key);
-  const [state, setState] = useState<T>(serializedItem ? JSON.parse(serializedItem) : initialValue);
+  const [state, setState] = useState<T>(
+    serializedItem ? (typeof serializedItem === 'object' ? JSON.parse(serializedItem) : serializedItem) : initialValue,
+  );
 
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(state));
